@@ -1,69 +1,118 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Play, Radio, Tv, Globe, Layers, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex flex-col min-h-screen bg-white">
+
+      {/* Hero Section (Matching Reference Dark Top Banner) */}
+      <section className="relative pt-36 pb-24 md:pt-48 md:pb-36 bg-[#111827] text-white overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-transparent to-transparent" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl">
+            <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-semibold mb-4 block">
+              GLOBALCAST SUMMIT & LIVE BROADCAST 2026
+            </span>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6 text-white">
+              Islamabad International Broadcast & Media Summit 2026
+            </h1>
+            <p className="text-slate-300 text-lg sm:text-xl font-normal leading-relaxed mb-8 max-w-2xl">
+              Connecting industry leaders, broadcasters, and technology innovators to shape the future of high-definition digital media distribution.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button
+                asChild
+                className="bg-[#1A73E8] hover:bg-[#1557B0] text-white font-medium px-8 h-12 rounded-lg shadow-md transition-all"
+              >
+                <Link href="/contact">
+                  Register Now
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Section 2: Structured Core Pillars / Grid (Matching Reference Layout Rhythm) */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-xs font-mono uppercase tracking-widest text-[#1A73E8] font-bold mb-3">
+              Strategic Insights
+            </h2>
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#202124] tracking-tight">
+              Driving broadcast excellence with strategic innovation
+            </h3>
+          </div>
+
+          {/* 6-Card Grid mimicking the reference layout */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Live Sports Production",
+                desc: "Broadcasting every match with precision and ultra-low latency multi-camera feeds across television and digital networks.",
+                icon: Tv,
+              },
+              {
+                title: "Strategic Communications",
+                desc: "Comprehensive public relations campaigns, media management, and high-impact institutional announcements.",
+                icon: Globe,
+              },
+              {
+                title: "Cloud Infrastructure",
+                desc: "Secure, scalable cloud-native asset management, remote contribution workflows, and live stream delivery.",
+                icon: Layers,
+              },
+              {
+                title: "OB Van Engineering",
+                desc: "Custom-built Outside Broadcast vans equipped with state-of-the-art switchers, audio consoles, and satellite uplinks.",
+                icon: Radio,
+              },
+              {
+                title: "Digital Archiving",
+                desc: "Automated AI-powered tagging and long-term secure archival solutions for legacy broadcast tape libraries.",
+                icon: CheckCircle2,
+              },
+              {
+                title: "Global Distribution",
+                desc: "Seamless multi-platform syndication connecting regional content directly to international broadcast networks.",
+                icon: ArrowRight,
+              },
+            ].map((item, idx) => {
+              const IconComponent = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white rounded-xl border border-[#DADCE0] p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-lg bg-[#E8F0FE] flex items-center justify-center text-[#1A73E8] mb-5">
+                      <IconComponent className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-lg font-bold text-[#202124] mb-2 group-hover:text-[#1A73E8] transition-colors">
+                      {item.title}
+                    </h4>
+                    <p className="text-[#5F6368] text-sm leading-relaxed mb-6">
+                      {item.desc}
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t border-[#F1F3F4] flex items-center text-xs font-semibold text-[#1A73E8]">
+                    <span>Learn More</span>
+                    <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
-      </main>
+      </section>
+
     </div>
   );
 }
