@@ -1,16 +1,20 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Radio, Tv, Globe, Layers, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
-
-      {/* Hero Section (Matching Reference Dark Top Banner) */}
-      <section className="relative pt-36 pb-24 md:pt-48 md:pb-36 bg-[#111827] text-white overflow-hidden">
-        {/* Subtle background glow */}
+      
+      {/* Hero Section */}
+      <section className="relative pt-44 md:pt-52 pb-24 md:pb-36 bg-[#111827] text-white overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-transparent to-transparent" />
-
+        
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl">
             <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-semibold mb-4 block">
@@ -24,23 +28,21 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Button
-                asChild
-                className="bg-[#1A73E8] hover:bg-[#1557B0] text-white font-medium px-8 h-12 rounded-lg shadow-md transition-all"
+                onClick={() => router.push('/contact')}
+                className="bg-[#1A73E8] hover:bg-[#1557B0] text-white font-medium px-8 h-12 rounded-lg shadow-md transition-all cursor-pointer inline-flex items-center gap-2"
               >
-                <Link href="/contact">
-                  Register Now
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
+                <span>Register Now</span>
+                <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 2: Structured Core Pillars / Grid (Matching Reference Layout Rhythm) */}
+      {/* Core Pillars Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-
+          
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-xs font-mono uppercase tracking-widest text-[#1A73E8] font-bold mb-3">
               Strategic Insights
@@ -50,7 +52,6 @@ export default function Home() {
             </h3>
           </div>
 
-          {/* 6-Card Grid mimicking the reference layout */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -86,8 +87,8 @@ export default function Home() {
             ].map((item, idx) => {
               const IconComponent = item.icon;
               return (
-                <div
-                  key={idx}
+                <div 
+                  key={idx} 
                   className="bg-white rounded-xl border border-[#DADCE0] p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
                 >
                   <div>
