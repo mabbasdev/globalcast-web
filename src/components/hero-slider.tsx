@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, ChevronLeft, ChevronRight, Calendar, MapPin } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Calendar, MapPin, Play, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface Slide {
@@ -13,7 +13,7 @@ interface Slide {
     title: string;
     description: string;
     metaInfo?: { date: string; location: string };
-    primaryAction: { label: string; href: string };
+    primaryAction: { label: string; href: string; isVideoTrigger?: boolean };
     secondaryAction?: { label: string; href: string };
     bgImage: string;
     bgVideo?: string;
@@ -25,20 +25,20 @@ interface Slide {
 const slides: Slide[] = [
     {
         id: 1,
-        alignment: "left",
+        alignment: "center",
         badge: "UPCOMING EVENT",
         title: "Islamabad International Broadcast & Media Summit 2026",
         description: "Connect with global media leaders and explore next-generation digital broadcast distribution across international networks.",
         metaInfo: { date: "Oct 12-15, 2026", location: "Jinnah Convention Centre, Islamabad" },
-        primaryAction: { label: "Register for Summit", href: "/contact" },
+        primaryAction: { label: "Watch Showreel", href: "#", isVideoTrigger: true },
         secondaryAction: { label: "Explore Services", href: "/services" },
         bgImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=85",
-        youtubeId: "jiYF257LMAY",
+        directVideoUrl: "https://ik.imagekit.io/ghostshooter/showreel.mp4",
         showContent: true,
     },
     {
         id: 2,
-        alignment: "center",
+        alignment: "left",
         badge: "CLOUD INFRASTRUCTURE",
         title: "Enterprise Cloud Workflows & IP Distribution",
         description: "Empowering television networks with automated media asset management and ultra-low latency live streaming.",
@@ -78,13 +78,11 @@ export function HeroSlider() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const router = useRouter();
 
-    // Simulate initial mount skeleton loader for 700ms
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 700);
+        const timer = setTimeout(() => setIsLoading(false), 700);
         return () => clearTimeout(timer);
     }, []);
 
@@ -96,14 +94,13 @@ export function HeroSlider() {
         setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     }, []);
 
-    // Auto-rotate slides smoothly every 5 seconds
     useEffect(() => {
-        if (isPaused || isLoading) return;
+        if (isPaused || isLoading || isVideoModalOpen) return;
         const timer = setInterval(() => {
             nextSlide();
         }, 5000);
         return () => clearInterval(timer);
-    }, [isPaused, isLoading, nextSlide]);
+    }, [isPaused, isLoading, isVideoModalOpen, nextSlide]);
 
     if (isLoading) {
         return (
@@ -114,15 +111,13 @@ export function HeroSlider() {
                         <Skeleton className="w-full h-12 rounded-xl" />
                         <Skeleton className="w-3/4 h-12 rounded-xl" />
                         <Skeleton className="w-5/6 h-6 rounded-lg" />
-                        <div className="flex gap-4 pt-4">
-                            <Skeleton className="w-36 h-11 rounded-lg" />
-                            <Skeleton className="w-36 h-11 rounded-lg" />
-                        </div>
                     </div>
                 </div>
             </section>
         );
     }
+
+    const activeSlide = slides[currentSlide];
 
     return (
         <section
@@ -143,35 +138,16 @@ export function HeroSlider() {
                             }`}
                     >
                         {/* Background Media Layer */}
-                        <div className="absolute inset-0 z-0 overflow-hidden">
-                            {s.youtubeId ? (
-                                <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none scale-125 opacity-70">
-                                    <iframe
-                                        src={`https://www.youtube.com/embed/${s.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${s.youtubeId}&controls=0&showinfo=0&autohide=1&modestbranding=1&disablekb=1&iv_load_policy=3`}
-                                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] border-0"
-                                        allow="autoplay; encrypted-media"
-                                        title="Background YouTube Video"
-                                    />
-                                </div>
-                            ) : s.directVideoUrl ? (
+                        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                            {s.directVideoUrl ? (
                                 <video
                                     autoPlay
                                     muted
                                     loop
                                     playsInline
-                                    className="w-full h-full object-cover opacity-60 scale-105"
+                                    className="w-full h-full object-cover opacity-65 scale-105"
                                 >
                                     <source src={s.directVideoUrl} type="video/mp4" />
-                                </video>
-                            ) : s.bgVideo ? (
-                                <video
-                                    autoPlay
-                                    muted
-                                    loop
-                                    playsInline
-                                    className="w-full h-full object-cover opacity-60"
-                                >
-                                    <source src={s.bgVideo} type="video/mp4" />
                                 </video>
                             ) : (
                                 <div
@@ -204,48 +180,26 @@ export function HeroSlider() {
                                                 : "items-start text-left max-w-3xl"
                                         }`}
                                 >
-                                    {/* 1. Eyebrow Badge */}
-                                    <div
-                                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[#38BDF8] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase mb-3.5 sm:mb-4 transition-all duration-700 ease-out ${isActive
-                                                ? "opacity-100 translate-y-0 delay-100"
-                                                : "opacity-0 translate-y-3 delay-0"
-                                            }`}
-                                    >
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[#38BDF8] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase mb-3.5 sm:mb-4">
                                         <span className="w-1.5 h-1.5 rounded-full bg-[#1A73E8] animate-pulse" />
                                         {s.badge}
                                     </div>
 
-                                    {/* 2. Main Title */}
-                                    <h1
-                                        className={`text-2xl sm:text-4xl lg:text-[46px] font-extrabold tracking-tight text-white mb-3.5 sm:mb-4 leading-[1.2] font-sans line-clamp-2 transition-all duration-700 ease-out ${isActive
-                                                ? "opacity-100 translate-y-0 delay-200"
-                                                : "opacity-0 translate-y-4 delay-0"
-                                            }`}
-                                    >
+                                    <h1 className="text-2xl sm:text-4xl lg:text-[46px] font-extrabold tracking-tight text-white mb-3.5 sm:mb-4 leading-[1.2] font-sans line-clamp-2">
                                         {s.title}
                                     </h1>
 
-                                    {/* 3. Subtitle / Paragraph */}
-                                    <p
-                                        className={`text-slate-300 text-sm sm:text-base lg:text-lg font-normal leading-relaxed mb-5 sm:mb-6 max-w-2xl line-clamp-2 transition-all duration-700 ease-out ${isActive
-                                                ? "opacity-100 translate-y-0 delay-300"
-                                                : "opacity-0 translate-y-4 delay-0"
-                                            }`}
-                                    >
+                                    <p className="text-slate-300 text-sm sm:text-base lg:text-lg font-normal leading-relaxed mb-5 sm:mb-6 max-w-2xl line-clamp-2">
                                         {s.description}
                                     </p>
 
-                                    {/* 4. Meta Info Row */}
                                     {s.metaInfo && (
                                         <div
-                                            className={`flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm text-slate-300 mb-6 sm:mb-7 font-medium transition-all duration-700 ease-out ${s.alignment === "center"
+                                            className={`flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm text-slate-300 mb-6 sm:mb-7 font-medium ${s.alignment === "center"
                                                     ? "justify-center"
                                                     : s.alignment === "right"
                                                         ? "justify-start sm:justify-end"
                                                         : "justify-start"
-                                                } ${isActive
-                                                    ? "opacity-100 translate-y-0 delay-[350ms]"
-                                                    : "opacity-0 translate-y-4 delay-0"
                                                 }`}
                                         >
                                             <div className="flex items-center gap-2">
@@ -259,24 +213,29 @@ export function HeroSlider() {
                                         </div>
                                     )}
 
-                                    {/* 5. Action Buttons */}
                                     <div
-                                        className={`flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto transition-all duration-700 ease-out ${s.alignment === "center"
+                                        className={`flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto ${s.alignment === "center"
                                                 ? "justify-center"
                                                 : s.alignment === "right"
                                                     ? "justify-start sm:justify-end"
                                                     : "justify-start"
-                                            } ${isActive
-                                                ? "opacity-100 translate-y-0 delay-[420ms]"
-                                                : "opacity-0 translate-y-4 delay-0"
                                             }`}
                                     >
                                         <Button
-                                            onClick={() => router.push(s.primaryAction.href)}
+                                            onClick={() => {
+                                                if (s.primaryAction.isVideoTrigger) {
+                                                    setIsVideoModalOpen(true);
+                                                } else {
+                                                    router.push(s.primaryAction.href);
+                                                }
+                                            }}
                                             className="group bg-[#1A73E8] hover:bg-[#1557B0] text-white font-semibold shadow-xs hover:shadow-md rounded-lg px-5 sm:px-6 h-10 sm:h-11 transition-all duration-300 text-xs sm:text-sm flex items-center gap-2 cursor-pointer"
                                         >
+                                            {s.primaryAction.isVideoTrigger && <Play className="w-4 h-4 fill-white" />}
                                             <span>{s.primaryAction.label}</span>
-                                            <ArrowRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-1.5" />
+                                            {!s.primaryAction.isVideoTrigger && (
+                                                <ArrowRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-1.5" />
+                                            )}
                                         </Button>
 
                                         {s.secondaryAction && (
@@ -327,6 +286,27 @@ export function HeroSlider() {
                     </button>
                 </div>
             </div>
+
+            {/* Cinematic Video Modal Popup */}
+            {isVideoModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-8 animate-fade-in">
+                    <div className="relative w-full max-w-5xl bg-[#0B0F19] border border-white/20 rounded-2xl overflow-hidden shadow-2xl">
+                        <button
+                            onClick={() => setIsVideoModalOpen(false)}
+                            className="absolute top-4 right-4 z-20 w-10 h-10 rounded-xl bg-black/60 hover:bg-[#1A73E8] text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm"
+                            aria-label="Close Modal"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                        <div className="aspect-video w-full bg-black flex items-center justify-center">
+                            <video controls autoPlay className="w-full h-full object-cover">
+                                <source src={activeSlide.directVideoUrl || "https://ik.imagekit.io/ghostshooter/showreel.mp4"} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
