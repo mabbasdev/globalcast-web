@@ -220,7 +220,7 @@ export function IntroStats() {
                         FROM GROUND TO CLOUD
                     </div>
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-3 font-sans">
-                        We Power Every Frame
+                        We Power <span className="text-[#38BDF8]">Every Frame</span> 
                     </h2>
                     <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                         Delivering uncompromised media transmission, automated cloud asset
