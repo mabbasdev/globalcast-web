@@ -1,5 +1,6 @@
 "use client";
 
+import { HeroSlider } from "@/components/hero-slider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Radio, Tv, Globe, Layers, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
@@ -10,39 +11,13 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      
-      {/* Hero Section */}
-      <section className="relative pt-44 md:pt-52 pb-24 md:pb-36 bg-[#111827] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-transparent to-transparent" />
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-semibold mb-4 block">
-              GLOBALCAST SUMMIT & LIVE BROADCAST 2026
-            </span>
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6 text-white">
-              Islamabad International Broadcast & Media Summit 2026
-            </h1>
-            <p className="text-slate-300 text-lg sm:text-xl font-normal leading-relaxed mb-8 max-w-2xl">
-              Connecting industry leaders, broadcasters, and technology innovators to shape the future of high-definition digital media distribution.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button
-                onClick={() => router.push('/contact')}
-                className="bg-[#1A73E8] hover:bg-[#1557B0] text-white font-medium px-8 h-12 rounded-lg shadow-md transition-all cursor-pointer inline-flex items-center gap-2"
-              >
-                <span>Register Now</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+
+      <HeroSlider />
 
       {/* Core Pillars Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          
+
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-xs font-mono uppercase tracking-widest text-[#1A73E8] font-bold mb-3">
               Strategic Insights
@@ -87,8 +62,8 @@ export default function Home() {
             ].map((item, idx) => {
               const IconComponent = item.icon;
               return (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className="bg-white rounded-xl border border-[#DADCE0] p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
                 >
                   <div>
