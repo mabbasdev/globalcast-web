@@ -6,6 +6,7 @@ import { ImpactBento } from "@/components/impact-bento";
 import { AboutSection } from "@/components/about-section";
 import { ServicesBento } from "@/components/services-bento";
 import { WhyChooseUs } from "@/components/why-choose-us";
+import { GlobalNetworkCTA } from "@/components/join-network";
 
 export default function Home() {
   return (
@@ -15,6 +16,8 @@ export default function Home() {
       <ImpactBento />
       <AboutSection />
       <ServicesBento />
-      <WhyChooseUs />ن    </div>
+      <WhyChooseUs />
+      <GlobalNetworkCTA />
+    </div>
   );
 }
