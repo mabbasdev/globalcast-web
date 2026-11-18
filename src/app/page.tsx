@@ -3,6 +3,7 @@
 import { HeroSlider } from "@/components/hero-slider";
 import { IntroStats } from "@/components/intro-stats";
 import { ImpactBento } from "@/components/impact-bento";
+import { AboutSection } from "@/components/about-section";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSlider />
       <IntroStats />
       <ImpactBento />
+      <AboutSection />
     </div>
   );
 }
