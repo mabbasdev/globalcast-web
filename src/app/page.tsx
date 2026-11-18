@@ -7,6 +7,7 @@ import { AboutSection } from "@/components/about-section";
 import { ServicesBento } from "@/components/services-bento";
 import { WhyChooseUs } from "@/components/why-choose-us";
 import { GlobalNetworkCTA } from "@/components/join-network";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <ServicesBento />
       <WhyChooseUs />
       <GlobalNetworkCTA />
+      <Footer />
     </div>
   );
 }
