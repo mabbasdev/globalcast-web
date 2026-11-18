@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Layers, ShieldCheck, Zap, Radio, Globe, ArrowRight } from "lucide-react";
+import { Layers, Radio, Globe, Zap, ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
 
 // Reusable micro-counter component with smooth ease-out acceleration
 function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
@@ -55,8 +55,52 @@ const corePillars = [
     },
 ];
 
+const testimonials = [
+    {
+        quote: "Globalcast's OB production and ultra-low latency routing during the HBL PSL coverage set a new benchmark for live sports broadcasting in Pakistan.",
+        name: "Usman Tariq",
+        designation: "Head of Broadcast Operations",
+        company: "PCB",
+    },
+    {
+        quote: "Their satellite teleport infrastructure and 24/7 telemetry monitoring give us absolute peace of mind for our international news feeds.",
+        name: "Bilal Ahmed",
+        designation: "Chief Technical Officer",
+        company: "Geo News",
+    },
+    {
+        quote: "The cloud media workflows and automated MAM deployment transformed how quickly we push out high-definition content across our digital networks.",
+        name: "Ayesha Malik",
+        designation: "Director of Engineering",
+        company: "Hum Network",
+    },
+    {
+        quote: "Reliable, carrier-grade redundancy. Globalcast delivered our hybrid corporate summit with uncompromised visual fidelity and zero downtime.",
+        name: "Farhan Qureshi",
+        designation: "VP of Digital Infrastructure",
+        company: "Pakistan Tobacco Company",
+    },
+];
+
 export function WhyChooseUs() {
     const router = useRouter();
+    const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+    // Auto-rotating testimonials ticker effect
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+        }, 6000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const nextTestimonial = () => {
+        setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    };
+
+    const prevTestimonial = () => {
+        setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    };
 
     return (
         <section className="relative w-full bg-[#0B0F19] text-white py-20 sm:py-28 px-5 sm:px-12 overflow-hidden border-t border-b border-white/10">
@@ -80,7 +124,7 @@ export function WhyChooseUs() {
                             <span className="w-1.5 h-1.5 rounded-full bg-[#1A73E8] animate-pulse" />
                             WHY CHOOSE US
                         </div>
-                        <h2 className="text-3xl sm:text-4xl lg:text-[48px] font-extrabold tracking-tight leading-[1.12]">
+                        <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight leading-[1.12]">
                             Delivering <span className="text-[#38BDF8]">Precision</span>, Ensuring <span className="text-[#38BDF8]">Impact</span>
                         </h2>
                         <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
@@ -105,7 +149,7 @@ export function WhyChooseUs() {
                     <Interactive3DTrophy />
                 </div>
 
-                {/* Right Column: 4 Small Integrated Cards replacing the red box */}
+                {/* Right Column: 4 Small Integrated Core Cards */}
                 <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {corePillars.map((item, idx) => {
                         const IconComp = item.icon;
@@ -132,8 +176,8 @@ export function WhyChooseUs() {
 
             </div>
 
-            {/* Bottom Row: 4-Column Stats & Achievements Bar with Centralized Values */}
-            <div className="mx-auto max-w-7xl relative z-10 pt-10 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {/* Bottom Row 1: 4-Column Stats & Achievements Bar */}
+            <div className="mx-auto max-w-7xl relative z-10 pt-10 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
 
                 {/* Stat 1: Years Excellence */}
                 <div className="group relative bg-gradient-to-br from-white/[0.06] to-white/[0.01] hover:from-[#1A73E8]/15 hover:to-white/[0.03] border border-white/10 hover:border-[#1A73E8]/50 rounded-2xl p-6 text-center shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -162,7 +206,7 @@ export function WhyChooseUs() {
                 {/* Stat 3: Carrier Uptime */}
                 <div className="group relative bg-gradient-to-br from-white/[0.06] to-white/[0.01] hover:from-[#1A73E8]/15 hover:to-white/[0.03] border border-white/10 hover:border-[#1A73E8]/50 rounded-2xl p-6 text-center shadow-lg transition-all duration-300 hover:-translate-y-1">
                     <div className="text-3xl sm:text-4xl font-extrabold text-white font-sans tracking-tight mb-1 text-[#38BDF8] flex items-center justify-center">
-                        <AnimatedCounter target={99} />%
+                        <AnimatedCounter target={99} />.<AnimatedCounter target={99} />%
                     </div>
                     <div className="text-xs sm:text-sm font-bold text-white mb-1 uppercase font-mono tracking-wider">
                         Carrier Uptime
@@ -182,6 +226,113 @@ export function WhyChooseUs() {
                     <div className="text-[11px] text-slate-400">Sports &amp; Summits</div>
                 </div>
 
+            </div>
+
+            {/* Bottom Row 2: Full-Width Full-Space Testimonial Ticker */}
+            <div className="mx-auto max-w-7xl relative z-10 w-full">
+                <div className="bg-gradient-to-r from-white/[0.04] via-white/[0.02] to-white/[0.04] border border-white/10 hover:border-[#1A73E8]/40 rounded-2xl p-6 sm:px-10 sm:py-7 backdrop-blur-xl shadow-xl flex flex-col items-center justify-between gap-6 transition-all w-full">
+
+                    {/* Desktop Layout (md+) */}
+                    <div className="hidden md:flex items-center justify-between w-full gap-6">
+                        <div className="space-y-3 flex-1 w-full">
+                            <div className="relative min-h-[50px] overflow-hidden w-full">
+                                <div className="transition-all duration-500 transform">
+                                    <p className="text-slate-200 text-xs sm:text-sm italic leading-relaxed">
+                                        &ldquo;{testimonials[activeTestimonial].quote}&rdquo;
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10 w-full">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs sm:text-sm font-bold text-white">
+                                        {testimonials[activeTestimonial].name}
+                                    </span>
+                                    <span className="text-slate-500">•</span>
+                                    <span className="text-[11px] text-slate-300 font-medium">
+                                        {testimonials[activeTestimonial].designation}
+                                    </span>
+                                </div>
+
+                                <div className="px-3 py-1 rounded-lg bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[11px] font-mono font-bold text-[#38BDF8]">
+                                    {testimonials[activeTestimonial].company}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Desktop Controls */}
+                        <div className="flex items-center gap-6 shrink-0 border-l border-white/10 pl-6">
+                            <div className="flex flex-col items-center gap-1.5">
+                                {testimonials.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setActiveTestimonial(idx)}
+                                        className={`transition-all duration-300 cursor-pointer rounded-full ${idx === activeTestimonial ? "w-1.5 h-5 bg-[#38BDF8]" : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"
+                                            }`}
+                                        aria-label={`Go to slide ${idx + 1}`}
+                                    />
+                                ))}
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <button
+                                    onClick={prevTestimonial}
+                                    className="w-8 h-8 rounded-lg bg-white/5 hover:bg-[#1A73E8] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"
+                                    aria-label="Previous Testimonial"
+                                >
+                                    <ChevronUp className="w-4 h-4" />
+                                </button>
+                                <button
+                                    onClick={nextTestimonial}
+                                    className="w-8 h-8 rounded-lg bg-white/5 hover:bg-[#1A73E8] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"
+                                    aria-label="Next Testimonial"
+                                >
+                                    <ChevronDown className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Mobile & Small Devices Layout (<md): Centered 3 Rows & Centered Pagination */}
+                    <div className="flex md:hidden flex-col items-center text-center w-full space-y-4">
+                        <div className="w-full">
+                            <p className="text-slate-200 text-xs italic leading-relaxed">
+                                &ldquo;{testimonials[activeTestimonial].quote}&rdquo;
+                            </p>
+                        </div>
+
+                        <div className="w-full pt-3 border-t border-white/10 space-y-1.5 flex flex-col items-center">
+                            {/* Row 1: Name */}
+                            <span className="text-xs font-bold text-white block">
+                                {testimonials[activeTestimonial].name}
+                            </span>
+                            {/* Row 2: Designation */}
+                            <span className="text-[11px] text-slate-300 font-medium block">
+                                {testimonials[activeTestimonial].designation}
+                            </span>
+                            {/* Row 3: Company Badge */}
+                            <div className="pt-1">
+                                <span className="inline-block px-3 py-1 rounded-lg bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[11px] font-mono font-bold text-[#38BDF8]">
+                                    {testimonials[activeTestimonial].company}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Centralized Horizontal Pagination for Small Devices */}
+                        <div className="flex items-center justify-center gap-1.5 pt-2">
+                            {testimonials.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setActiveTestimonial(idx)}
+                                    className={`transition-all duration-300 cursor-pointer rounded-full ${idx === activeTestimonial ? "w-6 h-1.5 bg-[#38BDF8]" : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"
+                                        }`}
+                                    aria-label={`Go to slide ${idx + 1}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
     );
