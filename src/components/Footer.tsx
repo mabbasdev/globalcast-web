@@ -364,7 +364,7 @@ export default function Footer() {
                         Copyright &copy; 2026 <span className="text-white font-semibold">Globalcast Technical Solutions</span>
                     </p>
                     <p className="text-center sm:text-right">
-                        Crafted by <a href="https://www.linkedin.com/in/mabbasdev/" target="_blank" rel="noopener noreferrer" className="text-[#38BDF8] font-semibold hover:underline inline-flex items-center gap-0.5">Muhammad Abbas <ArrowUpRight className="w-3 h-3" /></a>
+                        Crafted by <a href="https://www.github.com/mabbasdev/" target="_blank" rel="noopener noreferrer" className="text-[#38BDF8] font-semibold hover:underline inline-flex items-center gap-0.5">Muhammad Abbas <ArrowUpRight className="w-3 h-3" /></a>
                     </p>
                 </div>
             </div>
