@@ -133,8 +133,8 @@ export function HeroSlider() {
                         key={s.id}
                         aria-hidden={!isActive}
                         className={`absolute inset-0 flex items-center pt-16 sm:pt-20 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive
-                                ? "z-10 opacity-100 scale-100 pointer-events-auto"
-                                : "z-0 opacity-0 scale-95 pointer-events-none"
+                            ? "z-10 opacity-100 scale-100 pointer-events-auto"
+                            : "z-0 opacity-0 scale-95 pointer-events-none"
                             }`}
                     >
                         {/* Background Media Layer */}
@@ -160,10 +160,10 @@ export function HeroSlider() {
                             {/* Editorial Vignettes */}
                             <div
                                 className={`absolute inset-0 ${s.alignment === "right"
-                                        ? "bg-gradient-to-l from-[#0B0F19] via-[#0B0F19]/85 to-[#0B0F19]/45"
-                                        : s.alignment === "center"
-                                            ? "bg-[#0B0F19]/75"
-                                            : "bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/85 to-[#0B0F19]/45"
+                                    ? "bg-gradient-to-l from-[#0B0F19] via-[#0B0F19]/85 to-[#0B0F19]/45"
+                                    : s.alignment === "center"
+                                        ? "bg-[#0B0F19]/75"
+                                        : "bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/85 to-[#0B0F19]/45"
                                     }`}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-black/50" />
@@ -174,10 +174,10 @@ export function HeroSlider() {
                             <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-12 w-full">
                                 <div
                                     className={`flex flex-col ${s.alignment === "center"
-                                            ? "items-center text-center mx-auto max-w-3xl"
-                                            : s.alignment === "right"
-                                                ? "items-start sm:items-end text-left sm:text-right sm:ml-auto max-w-3xl"
-                                                : "items-start text-left max-w-3xl"
+                                        ? "items-center text-center mx-auto max-w-3xl"
+                                        : s.alignment === "right"
+                                            ? "items-start sm:items-end text-left sm:text-right sm:ml-auto max-w-3xl"
+                                            : "items-start text-left max-w-3xl"
                                         }`}
                                 >
                                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[#38BDF8] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase mb-3.5 sm:mb-4">
@@ -196,10 +196,10 @@ export function HeroSlider() {
                                     {s.metaInfo && (
                                         <div
                                             className={`flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm text-slate-300 mb-6 sm:mb-7 font-medium ${s.alignment === "center"
-                                                    ? "justify-center"
-                                                    : s.alignment === "right"
-                                                        ? "justify-start sm:justify-end"
-                                                        : "justify-start"
+                                                ? "justify-center"
+                                                : s.alignment === "right"
+                                                    ? "justify-start sm:justify-end"
+                                                    : "justify-start"
                                                 }`}
                                         >
                                             <div className="flex items-center gap-2">
@@ -215,10 +215,10 @@ export function HeroSlider() {
 
                                     <div
                                         className={`flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto ${s.alignment === "center"
-                                                ? "justify-center"
-                                                : s.alignment === "right"
-                                                    ? "justify-start sm:justify-end"
-                                                    : "justify-start"
+                                            ? "justify-center"
+                                            : s.alignment === "right"
+                                                ? "justify-start sm:justify-end"
+                                                : "justify-start"
                                             }`}
                                     >
                                         <Button
@@ -287,14 +287,13 @@ export function HeroSlider() {
                 </div>
             </div>
 
-            {/* Cinematic Video Modal Popup */}
+            {/* Cinematic Video Modal Popup with Smooth Fade & Zoom Animation */}
             {isVideoModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-8 animate-fade-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-8 animate-in fade-in zoom-in-95 duration-300">
                     <div className="relative w-full max-w-5xl bg-[#0B0F19] border border-white/20 rounded-2xl overflow-hidden shadow-2xl">
                         <button
                             onClick={() => setIsVideoModalOpen(false)}
                             className="absolute top-4 right-4 z-20 w-10 h-10 rounded-xl bg-black/60 hover:bg-[#1A73E8] text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm"
-                            aria-label="Close Modal"
                         >
                             <X className="w-5 h-5" />
                         </button>

@@ -52,7 +52,6 @@ const stats: StatItem[] = [
     },
 ];
 
-// All 18 client logos with individual image URLs ready to be updated
 const clients: ClientLogo[] = [
     {
         name: "SPEL",
@@ -132,7 +131,6 @@ export function IntroStats() {
     const [isLoading, setIsLoading] = useState(true);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    // Hover & Drag states
     const isHovered = useRef(false);
     const isDragging = useRef(false);
     const startX = useRef(0);
@@ -143,13 +141,12 @@ export function IntroStats() {
         return () => clearTimeout(timer);
     }, []);
 
-    // Smooth Auto-Scroll Ticker that pauses on hover or drag
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container || isLoading) return;
 
         let animationFrameId: number;
-        const scrollSpeed = 0.7; // Gentle continuous scroll speed
+        const scrollSpeed = 0.7;
 
         const step = () => {
             if (container && !isHovered.current && !isDragging.current) {
@@ -165,7 +162,6 @@ export function IntroStats() {
         return () => cancelAnimationFrame(animationFrameId);
     }, [isLoading]);
 
-    // Mouse & Touch Drag Handlers
     const handleMouseDown = (e: React.MouseEvent) => {
         isDragging.current = true;
         if (scrollContainerRef.current) {
@@ -209,18 +205,16 @@ export function IntroStats() {
 
     return (
         <section className="relative py-16 sm:py-24 bg-[#0B0F19] border-t border-white/10 overflow-hidden">
-            {/* Subtle Ambient Glow */}
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-[#1A73E8]/10 blur-[130px] rounded-full pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-12">
-                {/* Header */}
                 <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[#38BDF8] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase mb-3 shadow-xs">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#1A73E8] animate-pulse" />
                         FROM GROUND TO CLOUD
                     </div>
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-3 font-sans">
-                        We Power <span className="text-[#38BDF8]">Every Frame</span> 
+                        We Power <span className="text-[#38BDF8]">Every Frame</span>
                     </h2>
                     <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                         Delivering uncompromised media transmission, automated cloud asset
@@ -228,7 +222,6 @@ export function IntroStats() {
                     </p>
                 </div>
 
-                {/* 4 Stat Cards */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 sm:mb-24">
                     {stats.map((item, idx) => {
                         const IconComp = item.icon;
@@ -262,7 +255,6 @@ export function IntroStats() {
                     })}
                 </div>
 
-                {/* 18 Client Logos Slider with Hover Pause & Non-Clickable Cards */}
                 <div className="pt-8 sm:pt-12 border-t border-white/10">
                     <p className="text-center text-[11px] sm:text-xs font-mono uppercase tracking-widest text-slate-400 mb-6 sm:mb-8">
                         Trusted by 18+ Leading Broadcasters & Media Networks
@@ -270,13 +262,8 @@ export function IntroStats() {
 
                     <div
                         ref={scrollContainerRef}
-                        onMouseEnter={() => {
-                            isHovered.current = true;
-                        }}
-                        onMouseLeave={() => {
-                            isHovered.current = false;
-                            isDragging.current = false;
-                        }}
+                        onMouseEnter={() => { isHovered.current = true; }}
+                        onMouseLeave={() => { isHovered.current = false; isDragging.current = false; }}
                         onMouseDown={handleMouseDown}
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
@@ -304,19 +291,39 @@ export function IntroStats() {
     );
 }
 
-// Smooth number counter component
+// Scroll-Triggered Smooth Number Counter Component
 function Counter({ target, suffix }: { target: number; suffix: string }) {
     const [count, setCount] = useState(0);
+    const [hasStarted, setHasStarted] = useState(false);
+    const counterRef = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setHasStarted(true);
+                }
+            },
+            { threshold: 0.3 }
+        );
+
+        if (counterRef.current) {
+            observer.observe(counterRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!hasStarted) return;
+
         let startTime: number;
         const duration = 2000;
 
         const animateCount = (timestamp: number) => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / duration, 1);
-            const current =
-                progress === 1 ? target : target * (1 - Math.pow(2, -10 * progress));
+            const current = progress === 1 ? target : target * (1 - Math.pow(2, -10 * progress));
             setCount(current);
 
             if (progress < 1) {
@@ -326,17 +333,16 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
 
         const frameId = requestAnimationFrame(animateCount);
         return () => cancelAnimationFrame(frameId);
-    }, [target]);
+    }, [hasStarted, target]);
 
-    const formattedNumber =
-        target % 1 !== 0
-            ? count.toFixed(2)
-            : target >= 1000
-                ? Math.floor(count).toLocaleString()
-                : Math.floor(count);
+    const formattedNumber = target % 1 !== 0
+        ? count.toFixed(2)
+        : target >= 1000
+            ? Math.floor(count).toLocaleString()
+            : Math.floor(count);
 
     return (
-        <span>
+        <span ref={counterRef}>
             {formattedNumber}
             {suffix}
         </span>

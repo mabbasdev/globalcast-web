@@ -5,16 +5,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Radio, Globe, ShieldCheck, Award, Video, Shield, Zap, Server, Briefcase, Users, Star, Activity, Cpu } from "lucide-react";
 
 interface TechMetric {
-    value: string;
+    prefix: string;
+    numericValue: number;
+    suffix: string;
     label: string;
     sublabel: string;
+    isFraction?: boolean;
+    secondValue?: number;
+    secondSuffix?: string;
 }
 
 const techMetrics: TechMetric[] = [
-    { value: "<50ms", label: "Stream Latency", sublabel: "Ultra-low global delivery" },
-    { value: "99.99%", label: "Carrier Uptime", sublabel: "Redundant teleports" },
-    { value: "4K/8K", label: "HDR Transcode", sublabel: "Pristine visual fidelity" },
-    { value: "24/7", label: "Active Telemetry", sublabel: "Real-time NOC monitoring" },
+    { prefix: "<", numericValue: 50, suffix: "ms", label: "Stream Latency", sublabel: "Ultra-low global delivery" },
+    { prefix: "", numericValue: 99.99, suffix: "%", label: "Carrier Uptime", sublabel: "Redundant teleports" },
+    { prefix: "", numericValue: 4, suffix: "K / 8K", label: "HDR Transcode", sublabel: "Pristine visual fidelity" },
+    { prefix: "", numericValue: 24, suffix: "/ 7", label: "Active Telemetry", sublabel: "Real-time NOC monitoring" },
 ];
 
 const achievementCards = [
@@ -118,7 +123,7 @@ export function ImpactBento() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#1A73E8]/10 blur-[140px] rounded-full pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-12">
-                
+
                 {/* Journey & Vision Section with Highlighted Keywords */}
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[#38BDF8] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase mb-3 shadow-xs">
@@ -135,7 +140,7 @@ export function ImpactBento() {
 
                 {/* Bento Grid Container */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
-                    
+
                     {/* Left Column: Technical Performance Metrics (Span 6 Cols on LG) */}
                     <div className="lg:col-span-6 bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-lg relative overflow-hidden group hover:border-[#1A73E8]/50 transition-all">
                         <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-[#1A73E8]/10 rounded-full blur-3xl pointer-events-none" />
@@ -152,12 +157,16 @@ export function ImpactBento() {
                             </p>
                         </div>
 
-                        {/* 2x2 Sub-Grid for Technical Metrics */}
+                        {/* 2x2 Sub-Grid for Technical Metrics with Counters */}
                         <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4 border-t border-white/10">
                             {techMetrics.map((tm, i) => (
                                 <div key={i} className="bg-black/20 rounded-xl p-3 sm:p-4 border border-white/5">
                                     <div className="text-xl sm:text-3xl font-extrabold text-[#38BDF8] font-sans tracking-tight mb-0.5">
-                                        {tm.value}
+                                        <TechCounter
+                                            prefix={tm.prefix}
+                                            target={tm.numericValue}
+                                            suffix={tm.suffix}
+                                        />
                                     </div>
                                     <div className="text-xs font-bold text-white mb-0.5">{tm.label}</div>
                                     <div className="text-[10px] text-slate-400">{tm.sublabel}</div>
@@ -168,7 +177,7 @@ export function ImpactBento() {
 
                     {/* Right Column: 4 Uniform Service Cards (Span 6 Cols on LG) */}
                     <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        
+
                         {/* Card 1: Global Productions */}
                         <div className="bg-gradient-to-b from-white/[0.05] to-white/[0.01] border border-white/10 rounded-2xl p-5 flex flex-col justify-between hover:border-[#1A73E8]/50 transition-all group">
                             <div>
@@ -260,49 +269,92 @@ export function ImpactBento() {
                     })}
                 </div>
 
-                {/* Integrated 18-Client Marquee Strip */}
-                {/* <div className="pt-6 border-t border-white/10">
-                    <p className="text-center text-[10px] sm:text-xs font-mono uppercase tracking-widest text-slate-400 mb-5">
-                        Trusted by 18+ Leading Broadcasters & Media Networks
-                    </p>
-
-                    <div
-                        ref={scrollContainerRef}
-                        onMouseEnter={() => { isHovered.current = true; }}
-                        onMouseLeave={() => { isHovered.current = false; isDragging.current = false; }}
-                        onMouseDown={handleMouseDown}
-                        onMouseMove={handleMouseMove}
-                        onMouseUp={handleMouseUp}
-                        className="relative w-full overflow-x-hidden no-scrollbar cursor-grab active:cursor-grabbing [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]"
-                    >
-                        <div className="flex items-center gap-4 w-max">
-                            {infiniteClients.map((client, idx) => (
-                                <div
-                                    key={`${client.name}-${idx}`}
-                                    className="w-36 sm:w-44 h-16 sm:h-20 shrink-0 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#1A73E8]/50 flex items-center justify-center p-2.5 transition-all duration-300 group shadow-sm select-none pointer-events-none sm:pointer-events-auto"
-                                >
-                                    <img
-                                        src={client.logoUrl}
-                                        alt={client.name}
-                                        className="max-h-[38px] max-w-[110px] w-auto h-auto object-contain rounded-md opacity-75 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300 pointer-events-none"
-                                        loading="lazy"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div> */}
-
             </div>
         </section>
     );
 }
 
-// Smooth Number Counter Component
-function Counter({ target, suffix }: { target: number; suffix: string }) {
+// Scroll-Triggered Technical Benchmark Counter Component
+function TechCounter({ prefix, target, suffix }: { prefix: string; target: number; suffix: string }) {
     const [count, setCount] = useState(0);
+    const [hasStarted, setHasStarted] = useState(false);
+    const counterRef = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setHasStarted(true);
+                }
+            },
+            { threshold: 0.3 }
+        );
+
+        if (counterRef.current) {
+            observer.observe(counterRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!hasStarted) return;
+
+        let startTime: number;
+        const duration = 1800;
+
+        const animateCount = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const current = progress === 1 ? target : target * (1 - Math.pow(2, -10 * progress));
+            setCount(current);
+
+            if (progress < 1) {
+                requestAnimationFrame(animateCount);
+            }
+        };
+
+        const frameId = requestAnimationFrame(animateCount);
+        return () => cancelAnimationFrame(frameId);
+    }, [hasStarted, target]);
+
+    const formattedNumber = target % 1 !== 0
+        ? count.toFixed(2)
+        : Math.floor(count);
+
+    return (
+        <span ref={counterRef}>
+            {prefix}{formattedNumber}{suffix}
+        </span>
+    );
+}
+
+// Scroll-Triggered Smooth Number Counter Component
+function Counter({ target, suffix }: { target: number; suffix: string }) {
+    const [count, setCount] = useState(0);
+    const [hasStarted, setHasStarted] = useState(false);
+    const counterRef = useRef<HTMLSpanElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setHasStarted(true);
+                }
+            },
+            { threshold: 0.3 }
+        );
+
+        if (counterRef.current) {
+            observer.observe(counterRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!hasStarted) return;
+
         let startTime: number;
         const duration = 2000;
 
@@ -319,16 +371,16 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
 
         const frameId = requestAnimationFrame(animateCount);
         return () => cancelAnimationFrame(frameId);
-    }, [target]);
+    }, [hasStarted, target]);
 
     const formattedNumber = target % 1 !== 0
         ? count.toFixed(2)
         : target >= 1000
-        ? Math.floor(count).toLocaleString()
-        : Math.floor(count);
+            ? Math.floor(count).toLocaleString()
+            : Math.floor(count);
 
     return (
-        <span>
+        <span ref={counterRef}>
             {formattedNumber}
             {suffix}
         </span>
