@@ -308,7 +308,7 @@ export function AboutSection() {
                             ABOUT GLOBALCAST
                         </div>
 
-                        <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-white tracking-tight mb-4 font-sans leading-[1.15]">
+                        <h2 className="text-3xl sm:text-4xl lg:text-[48px] font-extrabold text-white tracking-tight mb-4 font-sans leading-[1.15]">
                             Creating <span className="text-[#38BDF8]">Experiences</span> That Shine Through In A{" "}
                             <span className="text-[#38BDF8]">Crowded Digital World</span>
                         </h2>
