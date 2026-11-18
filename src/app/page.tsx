@@ -5,6 +5,7 @@ import { IntroStats } from "@/components/intro-stats";
 import { ImpactBento } from "@/components/impact-bento";
 import { AboutSection } from "@/components/about-section";
 import { ServicesBento } from "@/components/services-bento";
+import { WhyChooseUs } from "@/components/why-choose-us";
 
 export default function Home() {
   return (
@@ -14,6 +15,6 @@ export default function Home() {
       <ImpactBento />
       <AboutSection />
       <ServicesBento />
-    </div>
+      <WhyChooseUs />ن    </div>
   );
 }
