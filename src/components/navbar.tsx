@@ -49,8 +49,8 @@ export function Navbar() {
 
       {/* 1. Functional Top Announcement Strip (Dynamic background & text contrast) */}
       <div className={`py-3 px-4 sm:px-6 border-b transition-all duration-500 hidden sm:block ${isScrolled
-          ? "bg-[#0B0F19] text-white border-white/10 shadow-xs"
-          : "bg-black/40 backdrop-blur-md text-slate-200 border-white/10"
+        ? "bg-[#0B0F19] text-white border-white/10 shadow-xs"
+        : "bg-black/40 backdrop-blur-md text-slate-200 border-white/10"
         }`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between text-xs font-sans">
           {/* Left Side: Functional Email & Phone */}
@@ -84,8 +84,8 @@ export function Navbar() {
 
       {/* 2. Main Navigation Bar (Dynamic transparency on top vs frosted white on scroll) */}
       <div className={`transition-all duration-500 border-b ${isScrolled
-          ? "bg-white/95 backdrop-blur-md border-[#DADCE0] shadow-md"
-          : "bg-[#0B0F19]/50 backdrop-blur-md border-white/10 shadow-lg"
+        ? "bg-white/95 backdrop-blur-md border-[#DADCE0] shadow-md"
+        : "bg-[#0B0F19]/50 backdrop-blur-md border-white/10 shadow-lg"
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
 
@@ -120,8 +120,8 @@ export function Navbar() {
                   <Link
                     href="/"
                     className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all inline-block cursor-pointer ${isScrolled
-                        ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
-                        : "text-slate-200 hover:text-white hover:bg-white/10"
+                      ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
                       }`}
                   >
                     Home
@@ -133,8 +133,8 @@ export function Navbar() {
                   <Link
                     href="/about"
                     className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all inline-block cursor-pointer ${isScrolled
-                        ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
-                        : "text-slate-200 hover:text-white hover:bg-white/10"
+                      ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
                       }`}
                   >
                     About
@@ -143,10 +143,12 @@ export function Navbar() {
 
                 {/* Dropdown: Services */}
                 <NavigationMenuItem className="relative">
-                  <NavigationMenuTrigger className={`px-3.5 py-2 text-sm font-semibold rounded-lg bg-transparent transition-all flex items-center gap-1.5 font-sans cursor-pointer [&>svg]:inline-block [&>svg]:w-3.5 [&>svg]:h-3.5 [&>svg]:ml-0.5 ${isScrolled
-                      ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] data-[state=open]:bg-[#E8F0FE] data-[state=open]:text-[#1A73E8] [&>svg]:text-[#5F6368]"
-                      : "text-slate-200 hover:text-white hover:bg-white/10 data-[state=open]:bg-white/10 data-[state=open]:text-white [&>svg]:text-slate-300"
-                    }`}>
+                  <NavigationMenuTrigger
+                    className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 font-sans cursor-pointer [&>svg]:inline-block [&>svg]:w-3.5 [&>svg]:h-3.5 [&>svg]:ml-0.5 ${isScrolled
+                        ? "!bg-transparent text-[#5F6368] hover:!text-[#1A73E8] hover:!bg-[#E8F0FE] focus:!bg-[#E8F0FE] focus:!text-[#1A73E8] data-[state=open]:!bg-[#E8F0FE] data-[state=open]:!text-[#1A73E8] [&>svg]:text-[#5F6368]"
+                        : "!bg-transparent text-slate-200 hover:!text-white hover:!bg-white/10 focus:!bg-white/10 focus:!text-white data-[state=open]:!bg-white/15 data-[state=open]:!text-white [&>svg]:text-slate-300"
+                      }`}
+                  >
                     Services
                   </NavigationMenuTrigger>
 
@@ -196,8 +198,8 @@ export function Navbar() {
                   <Link
                     href="/our-work"
                     className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all inline-block cursor-pointer ${isScrolled
-                        ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
-                        : "text-slate-200 hover:text-white hover:bg-white/10"
+                      ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
                       }`}
                   >
                     Portfolio
@@ -209,8 +211,8 @@ export function Navbar() {
                   <Link
                     href="/our-team"
                     className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all inline-block cursor-pointer ${isScrolled
-                        ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
-                        : "text-slate-200 hover:text-white hover:bg-white/10"
+                      ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
                       }`}
                   >
                     Team
@@ -237,8 +239,8 @@ export function Navbar() {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger
                 className={`group inline-flex items-center justify-center w-10 h-10 rounded-xl border transition-all cursor-pointer shadow-2xs ${isScrolled
-                    ? "text-[#202124] bg-slate-50 hover:bg-[#E8F0FE] border-[#DADCE0]"
-                    : "text-white bg-white/10 hover:bg-white/20 border-white/20 backdrop-blur-md"
+                  ? "text-[#202124] bg-slate-50 hover:bg-[#E8F0FE] border-[#DADCE0]"
+                  : "text-white bg-white/10 hover:bg-white/20 border-white/20 backdrop-blur-md"
                   }`}
                 aria-label="Open Navigation Menu"
               >
