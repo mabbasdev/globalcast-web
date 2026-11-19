@@ -1,100 +1,11 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import {
-    ArrowRight,
-    ArrowUpRight,
-    Radio,
-    Server,
-    ShieldCheck,
-    Cpu,
-    Video,
-    Wifi,
-    Layers,
-    Activity,
-    Globe,
-    Tv,
-} from "lucide-react";
-
-interface ServiceItem {
-    title: string;
-    subtitle: string;
-    description: string;
-    icon: React.ElementType;
-    tags: string[];
-    badge: string;
-    href: string;
-    isLinkEnabled: boolean;
-}
-
-const servicesData: ServiceItem[] = [
-    {
-        title: "Sports Production & OB Vans",
-        subtitle: "Multi-camera live coverage",
-        description: "Turnkey multi-camera live sports coverage, custom OB vans, and real-time graphics for premier athletic leagues.",
-        icon: Video,
-        tags: ["SDI/IP", "Live Graphics", "Replay"],
-        badge: "4K/8K HDR",
-        href: "/services/sports",
-        isLinkEnabled: false,
-    },
-    {
-        title: "Cloud Media Workflows",
-        subtitle: "Automated asset management",
-        description: "Automated Media Asset Management (MAM), transcoding pipelines, and ultra-low-latency SRT/RIST IP distribution.",
-        icon: Server,
-        tags: ["Cloud MAM", "OTT Playout"],
-        badge: "<50ms",
-        href: "/services/cloud",
-        isLinkEnabled: false,
-    },
-    {
-        title: "Satellite & Teleport Uplink",
-        subtitle: "Global C/Ku band links",
-        description: "Global C-band and Ku-band earth station teleports and redundant fiber-to-satellite distribution.",
-        icon: Wifi,
-        tags: ["C/Ku Band", "DSNG", "Redundancy"],
-        badge: "99.99% SLA",
-        href: "/services/satellite",
-        isLinkEnabled: false,
-    },
-    {
-        title: "Engineering Systems Design",
-        subtitle: "Turnkey studio integration",
-        description: "End-to-end broadcast systems integration, Master Control Room (MCR) commissioning, and SMPTE ST 2110 IP setup.",
-        icon: Cpu,
-        tags: ["MCR Playout", "Studio Design"],
-        badge: "ST 2110",
-        href: "/services/consulting",
-        isLinkEnabled: false,
-    },
-    {
-        title: "Corporate & Hybrid Events",
-        subtitle: "High-definition live summits",
-        description: "Immersive multi-stream digital broadcasting for corporate summits and hybrid global conferences.",
-        icon: Globe,
-        tags: ["Keynote", "Secure Gateways"],
-        badge: "LIVE FEED",
-        href: "/services/corporate",
-        isLinkEnabled: false,
-    },
-    {
-        title: "24/7 NOC & Telemetry",
-        subtitle: "Continuous signal monitoring",
-        description: "Round-the-clock Network Operations Center (NOC) monitoring, signal diagnostics, and fault-tolerant telemetry.",
-        icon: Activity,
-        tags: ["24/7 NOC", "Telemetry"],
-        badge: "ACTIVE",
-        href: "/services/noc",
-        isLinkEnabled: false,
-    },
-];
+import { servicesData } from "@/data/services";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export function ServicesBento() {
-    const router = useRouter();
-
     return (
         <section
             id="services"
@@ -110,7 +21,7 @@ export function ServicesBento() {
                     <div className="max-w-2xl">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A73E8]/20 border border-[#1A73E8]/40 text-[#38BDF8] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase mb-4 shadow-xs">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#1A73E8] animate-pulse" />
-                            OUR CAPABILITIES & SERVICES
+                            OUR CAPABILITIES &amp; SERVICES
                         </div>
                         <h2 className="text-3xl sm:text-4xl lg:text-[48px] font-extrabold text-white tracking-tight font-sans leading-[1.15]">
                             End-to-End <span className="text-[#38BDF8]">Broadcast</span> &amp;{" "}
@@ -122,25 +33,26 @@ export function ServicesBento() {
                         <p className="text-slate-300 text-xs sm:text-sm max-w-md lg:text-right leading-relaxed">
                             From live stadium OB production to carrier-grade satellite teleports and automated cloud workflows.
                         </p>
-                        <Button
-                            type="button"
-                            onClick={() => router.push("/services")}
-                            className="group bg-white/[0.04] hover:bg-[#1A73E8] text-white border border-white/15 hover:border-[#1A73E8] rounded-lg px-5 h-10 text-xs font-mono uppercase tracking-wider transition-all cursor-pointer self-start lg:self-end shadow-sm"
+                        <Link
+                            href="/services"
+                            className="group bg-white/[0.04] hover:bg-[#1A73E8] text-white border border-white/15 hover:border-[#1A73E8] rounded-lg px-5 h-10 text-xs font-mono uppercase tracking-wider transition-all self-start lg:self-end shadow-sm inline-flex items-center"
                         >
                             <span>Explore All Services</span>
                             <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                        </Button>
+                        </Link>
                     </div>
                 </div>
 
                 {/* Compact 3-Column Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                    {servicesData.map((service, index) => {
+                    {servicesData.map((service) => {
                         const IconComponent = service.icon;
 
-                        const cardContent = (
-                            <div
-                                className="group relative rounded-2xl bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 hover:border-[#1A73E8]/60 overflow-hidden p-6 sm:p-7 flex flex-col justify-between shadow-lg transition-all duration-300 hover:-translate-y-1"
+                        return (
+                            <Link
+                                key={service.id}
+                                href={service.href}
+                                className="group relative rounded-2xl bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 hover:border-[#1A73E8]/60 overflow-hidden p-6 sm:p-7 flex flex-col justify-between shadow-lg transition-all duration-300 hover:-translate-y-1 h-full"
                             >
                                 {/* Background Glow Accent */}
                                 <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-[#1A73E8]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#1A73E8]/20 transition-colors" />
@@ -152,7 +64,9 @@ export function ServicesBento() {
                                     </div>
 
                                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-mono font-bold tracking-wider uppercase text-[#38BDF8]">
-                                        {service.badge.includes("HDR") || service.badge.includes("ACTIVE") || service.badge.includes("LIVE") ? (
+                                        {service.badge.includes("HDR") ||
+                                            service.badge.includes("ACTIVE") ||
+                                            service.badge.includes("LIVE") ? (
                                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
                                         ) : null}
                                         <span>{service.badge}</span>
@@ -171,18 +85,16 @@ export function ServicesBento() {
                                             </p>
                                         </div>
 
-                                        {service.isLinkEnabled && (
-                                            <div className="w-7 h-7 rounded-full bg-white/10 group-hover:bg-[#1A73E8] flex items-center justify-center text-white shrink-0 transition-colors">
-                                                <ArrowUpRight className="w-3.5 h-3.5" />
-                                            </div>
-                                        )}
+                                        <div className="w-7 h-7 rounded-full bg-white/10 group-hover:bg-[#1A73E8] flex items-center justify-center text-white shrink-0 transition-colors">
+                                            <ArrowUpRight className="w-3.5 h-3.5" />
+                                        </div>
                                     </div>
 
                                     <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5 line-clamp-3">
                                         {service.description}
                                     </p>
 
-                                    {/* Larger, More Readable Result Pills / Tags */}
+                                    {/* Result Pills / Tags */}
                                     <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-white/10">
                                         {service.tags.map((tag) => (
                                             <span
@@ -194,17 +106,7 @@ export function ServicesBento() {
                                         ))}
                                     </div>
                                 </div>
-                            </div>
-                        );
-
-                        return service.isLinkEnabled ? (
-                            <Link key={index} href={service.href} className="contents">
-                                {cardContent}
                             </Link>
-                        ) : (
-                            <div key={index} className="contents">
-                                {cardContent}
-                            </div>
                         );
                     })}
                 </div>
