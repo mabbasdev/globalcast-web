@@ -73,9 +73,9 @@ export function Navbar() {
             <Link href="/careers" className="hover:text-white transition-colors">
               Careers
             </Link>
-            <Link href="/feedback" className="hover:text-white transition-colors">
+            {/* <Link href="/feedback" className="hover:text-white transition-colors">
               Feedback
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-3 group py-1">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-                <svg
+                {/* <svg
                   viewBox="0 0 100 100"
                   className="w-full h-full drop-shadow-xs"
                   fill="none"
@@ -111,6 +111,33 @@ export function Navbar() {
                     strokeWidth="12"
                     strokeLinecap="round"
                   />
+                </svg> */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
+                  <g transform="scale(0.3333333333333333)">
+                    <path d="M238 49L202 86C188 72 171 65 151 65C111 65 80 96 80 137C80 159 89 177 105 193L150 239L113 278L62 225C39 202 27 172 27 139C27 68 82 13 151 13C184 13 215 26 238 49Z" fill="url(#paint0_linear_1_12)" />
+                    <path d="M137 138H223C246 138 264 156 264 179C264 190 259 202 251 210L189 279H113L204 187H187C159 187 137 165 137 138Z" fill="url(#paint1_linear_1_12)" />
+                    <path d="M137 138H223C223 165 205 187 187 187C159 187 137 165 137 138Z" fill="url(#paint2_linear_1_12)" />
+                    <path opacity="0.88" d="M113 278L150 239L166 223L129 278H113Z" fill="url(#paint3_linear_1_12)" />
+                    <path opacity="0.58" d="M203 187C215 175 222 159 223 138C233 138 241 141 248 146C242 164 227 181 207 190L203 187Z" fill="#4B98BF" />
+                  </g>
+                  <defs>
+                    <linearGradient id="paint0_linear_1_12" x1="27" y1="13" x2="285.266" y2="218.638" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#71B7E2" />
+                      <stop offset="1" stopColor="#5C9DD0" />
+                    </linearGradient>
+                    <linearGradient id="paint1_linear_1_12" x1="113" y1="279" x2="253.67" y2="128.354" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#7CD7E3" />
+                      <stop offset="1" stopColor="#A0E8E9" />
+                    </linearGradient>
+                    <linearGradient id="paint2_linear_1_12" x1="137" y1="138" x2="179.153" y2="211.983" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#71B7E2" />
+                      <stop offset="1" stopColor="#5C9DD0" />
+                    </linearGradient>
+                    <linearGradient id="paint3_linear_1_12" x1="113" y1="278" x2="167.962" y2="225.036" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#3977AC" />
+                      <stop offset="1" stopColor="#73B8DC" />
+                    </linearGradient>
+                  </defs>
                 </svg>
               </div>
               <div className="flex flex-col justify-center">
@@ -437,8 +464,8 @@ export function Navbar() {
           onMouseEnter={() => setServicesDropdownOpen(true)}
           onMouseLeave={() => setServicesDropdownOpen(false)}
           className={`hidden md:block absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-300 ${servicesDropdownOpen
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 -translate-y-2 pointer-events-none"
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-2 pointer-events-none"
             }`}
         >
           <div className="w-[660px] rounded-2xl bg-[#0B0F19]/98 backdrop-blur-3xl border border-white/20 shadow-2xl p-7">

@@ -170,3 +170,9 @@
 .animate-marquee-slow:hover {
   animation-play-state: paused;
 }
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
