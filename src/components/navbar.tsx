@@ -212,7 +212,7 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="/our-team"
+              href="/team"
               className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all cursor-pointer ${isScrolled
                 ? "text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE]"
                 : "text-slate-200 hover:text-white hover:bg-white/10"
@@ -366,7 +366,7 @@ export function Navbar() {
                         Portfolio
                       </Link>
                       <Link
-                        href="/our-team"
+                        href="/team"
                         onClick={() => setIsOpen(false)}
                         className="py-2.5 px-3 rounded-lg text-sm font-semibold text-slate-700 hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-all"
                       >
