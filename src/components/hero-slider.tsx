@@ -33,7 +33,7 @@ const slides: Slide[] = [
         primaryAction: { label: "Watch Showreel", href: "#", isVideoTrigger: true },
         secondaryAction: { label: "Explore Services", href: "/services" },
         bgImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=85",
-        // directVideoUrl: "https://www.youtube.com/watch?v=RlsxnU3LCis",
+        directVideoUrl: "https://ik.imagekit.io/ghostshooter/showreel.mp4",
         showContent: true,
     },
     {
@@ -305,7 +305,7 @@ export function HeroSlider() {
                         </button>
                         <div className="aspect-video w-full bg-black flex items-center justify-center">
                             <video controls autoPlay preload="none" className="w-full h-full object-cover">
-                                <source src={activeSlide.directVideoUrl || "https://www.youtube.com/watch?v=RlsxnU3LCis"} type="video/mp4" />
+                                <source src={activeSlide.directVideoUrl || "https://ik.imagekit.io/ghostshooter/showreel.mp4"} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </div>
