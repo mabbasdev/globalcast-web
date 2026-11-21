@@ -276,8 +276,11 @@ export function IntroStats() {
                                     className="w-44 sm:w-52 h-20 sm:h-24 shrink-0 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#1A73E8]/50 flex items-center justify-center p-3 transition-all duration-300 group shadow-sm select-none pointer-events-none sm:pointer-events-auto"
                                 >
                                     <img
-                                        src={client.logoUrl}
+                                        src={client.logoUrl.includes("ik.imagekit.io") ? `${client.logoUrl.split("?")[0]}?tr=w-280,h-100,q-70,f-auto` : client.logoUrl}
                                         alt={client.name}
+                                        width={140}
+                                        height={50}
+                                        decoding="async"
                                         className="max-h-[50px] max-w-[140px] w-auto h-auto object-contain rounded-md opacity-75 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300 pointer-events-none"
                                         loading="lazy"
                                     />

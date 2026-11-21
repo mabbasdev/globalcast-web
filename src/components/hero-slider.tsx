@@ -132,6 +132,7 @@ export function HeroSlider() {
                     <div
                         key={s.id}
                         aria-hidden={!isActive}
+                        inert={!isActive}
                         className={`absolute inset-0 flex items-center pt-16 sm:pt-20 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive
                             ? "z-10 opacity-100 scale-100 pointer-events-auto"
                             : "z-0 opacity-0 scale-95 pointer-events-none"
@@ -140,20 +141,24 @@ export function HeroSlider() {
                         {/* Background Media Layer */}
                         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
                             {s.directVideoUrl ? (
-                                <video
+                                isActive ? (
+                                    <video
                                     autoPlay
                                     muted
                                     loop
                                     playsInline
+                                    preload="none"
+                                    poster={s.bgImage}
                                     className="w-full h-full object-cover opacity-65 scale-105"
                                 >
                                     <source src={s.directVideoUrl} type="video/mp4" />
                                 </video>
+                                ) : null
                             ) : (
                                 <div
                                     className={`w-full h-full bg-cover bg-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? "scale-100" : "scale-110"
                                         }`}
-                                    style={{ backgroundImage: `url(${s.bgImage})` }}
+                                    style={{ backgroundImage: isActive ? `url(${s.bgImage.replace("w=2000&q=85", "w=1280&q=65")})` : "none" }}
                                 />
                             )}
 
@@ -293,12 +298,13 @@ export function HeroSlider() {
                     <div className="relative w-full max-w-5xl bg-[#0B0F19] border border-white/20 rounded-2xl overflow-hidden shadow-2xl">
                         <button
                             onClick={() => setIsVideoModalOpen(false)}
+                            aria-label="Close video"
                             className="absolute top-4 right-4 z-20 w-10 h-10 rounded-xl bg-black/60 hover:bg-[#1A73E8] text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm"
                         >
                             <X className="w-5 h-5" />
                         </button>
                         <div className="aspect-video w-full bg-black flex items-center justify-center">
-                            <video controls autoPlay className="w-full h-full object-cover">
+                            <video controls autoPlay preload="none" className="w-full h-full object-cover">
                                 <source src={activeSlide.directVideoUrl || "https://ik.imagekit.io/ghostshooter/showreel.mp4"} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>

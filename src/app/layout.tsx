@@ -20,6 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <link rel="preconnect" href="https://ik.imagekit.io" crossOrigin="anonymous" />
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <Navbar />
         <main className="flex-1 flex flex-col">{children}</main>

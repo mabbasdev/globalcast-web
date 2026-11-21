@@ -259,8 +259,9 @@ export function AboutSection() {
                                 className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 shadow-2xl group cursor-pointer"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=85"
+                                    src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=720&q=70"
                                     alt="Globalcast Master Control"
+                                    width={720} height={540} decoding="async"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     loading="lazy"
                                 />
@@ -284,8 +285,9 @@ export function AboutSection() {
                                 className="hidden sm:block absolute -bottom-5 left-6 w-36 h-28 rounded-xl overflow-hidden border-2 border-[#0B0F19] shadow-2xl group cursor-pointer z-20"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=600&q=80"
+                                    src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=320&q=65"
                                     alt="Broadcast Production Switcher"
+                                    width={320} height={240} decoding="async"
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                                     loading="lazy"
                                 />
